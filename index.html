@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estepan Ashkarian</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Estepan Ashkarian, graduate student in mathematics at Purdue University. Analysis, partial differential equations and probability theory.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column with a sticky section bar; a profile header (photo + contact card),
+   then §-numbered sections set like a paper: bibliography, dated talk list, teaching record. */
+:root {
+  --paper: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #1a1e26;
+  --muted: #586070;
+  --rule: #d9dde4;
+  --accent: #7d5f16;       /* deep Purdue-style gold, dark enough for text */
+  --accent-soft: #efe6cf;
+  --font-display: "STIX Two Text", "Cambria", "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --measure: 46rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12151b; --surface: #191d25; --ink: #e6e8ed; --muted: #9ba2af;
+    --rule: #2b3039; --accent: #d8b860; --accent-soft: #2c271a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12151b; --surface: #191d25; --ink: #e6e8ed; --muted: #9ba2af;
+  --rule: #2b3039; --accent: #d8b860; --accent-soft: #2c271a; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper);
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+/* Sticky section bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.bar .wrap { display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; }
+.bar .home {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 600;
+  color: var(--ink); text-decoration: none; white-space: nowrap;
+}
+.bar nav { margin-left: auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.bar nav::-webkit-scrollbar { display: none; }
+.bar ul { display: flex; gap: 1.25rem; list-style: none; margin: 0; padding: 0.25rem 0; }
+.bar nav a {
+  color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; white-space: nowrap;
+}
+.bar nav a:hover { color: var(--ink); }
+
+/* Profile header */
+.profile {
+  display: grid; grid-template-columns: 13rem 1fr; gap: 2.25rem; align-items: start;
+  padding-block: 3.5rem 2.5rem;
+}
+.portrait {
+  width: 100%; height: auto; max-width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 52% 30%;
+  border-radius: 6px; display: block; background: var(--rule);
+}
+.profile h1 {
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(2.1rem, 5vw, 2.8rem);
+  line-height: 1.1; margin: 0 0 0.35rem; letter-spacing: -0.01em; text-wrap: balance;
+}
+.role { margin: 0 0 1.4rem; color: var(--muted); font-size: 1.05rem; }
+.role a { color: inherit; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1.25rem; margin: 0 0 1.5rem; font-size: 0.95rem; }
+.facts dt { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.facts dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0; padding: 0; list-style: none; }
+.links a {
+  display: inline-block; padding: 0.35rem 0.85rem; border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--surface); color: var(--ink); text-decoration: none; font-size: 0.875rem; font-weight: 500;
+}
+.links a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Sections */
+section { padding-block: 2.25rem; border-top: 1px solid var(--rule); }
+h2 {
+  font-family: var(--font-display); font-weight: 500; font-size: 1.65rem; line-height: 1.2;
+  margin: 0 0 1.25rem; display: flex; align-items: baseline; gap: 0.6rem;
+}
+h2 .sec { color: var(--accent); font-weight: 400; }
+h3 {
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+  font-weight: 600; margin: 1.75rem 0 0.75rem;
+}
+h3:first-of-type { margin-top: 0; }
+p { margin: 0 0 1rem; }
+.lede { font-size: 1.08rem; }
+
+.interests { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0 0 1.5rem; }
+.interests li {
+  background: var(--accent-soft); color: var(--ink); padding: 0.2rem 0.75rem; border-radius: 4px; font-size: 0.875rem;
+}
+.current { margin: 0 0 1.25rem; padding-left: 1.2rem; }
+.current li { margin-bottom: 0.3rem; }
+.edu { display: grid; gap: 1rem; }
+.edu div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; }
+.edu .tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding-top: 0.25rem; }
+.edu p { margin: 0; min-width: 0; }
+
+/* Bibliography */
+.bib { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; counter-reset: ref; }
+.bib li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.5rem; counter-increment: ref; }
+.bib li::before { content: "[" counter(ref) "]"; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bib .title { font-family: var(--font-display); font-size: 1.12rem; line-height: 1.4; display: block; margin-bottom: 0.15rem; }
+.bib .authors { color: var(--muted); font-size: 0.92rem; }
+.bib .authors strong { color: var(--ink); font-weight: 600; }
+.bib .meta { font-size: 0.88rem; margin-top: 0.2rem; }
+.bib .meta a { font-variant-numeric: tabular-nums; }
+
+/* Dated lists (talks, teaching, conferences) */
+.dated { list-style: none; margin: 0; padding: 0; }
+.dated li {
+  display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem;
+  padding-block: 0.7rem; border-bottom: 1px solid var(--rule);
+}
+.dated li:last-child { border-bottom: 0; }
+.dated time, .dated .when {
+  color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; padding-top: 0.12rem;
+}
+.dated .what { min-width: 0; }
+.dated .t { font-family: var(--font-display); font-size: 1.06rem; line-height: 1.4; display: block; }
+.dated .v { color: var(--muted); font-size: 0.9rem; }
+.year {
+  font-family: var(--font-display); font-size: 1.15rem; color: var(--accent);
+  margin: 1.5rem 0 0.25rem; font-weight: 500;
+}
+.year:first-of-type { margin-top: 0; }
+
+footer { border-top: 1px solid var(--rule); padding-block: 2rem 3rem; color: var(--muted); font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  .profile { grid-template-columns: 1fr; gap: 1.5rem; padding-block: 2rem 2rem; }
+  .portrait { max-width: 12rem; }
+  .bar .home { display: none; }
+  .bar nav { margin-left: 0; }
+  .bar ul { gap: 1rem; }
+  .bar nav a { font-size: 0.85rem; }
+  .dated li, .edu div { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="home" href="#top">Estepan Ashkarian</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#talks">Talks</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#conferences">Conferences</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <div class="profile">
+    <img class="portrait" src="images/estepan.jpg" alt="Portrait of Estepan Ashkarian" width="1200" height="927">
+    <div>
+      <h1>Estepan Ashkarian</h1>
+      <p class="role">Graduate Student in Mathematics, <a href="https://www.math.purdue.edu/academic/grad/">Purdue University</a></p>
+      <dl class="facts">
+        <dt>Department</dt><dd>Department of Mathematics, Purdue University</dd>
+        <dt>Office</dt><dd>Math 1027</dd>
+        <dt>Address</dt><dd>West Lafayette, Indiana</dd>
+        <dt>Email</dt><dd><a href="mailto:eashkari@purdue.edu">eashkari@purdue.edu</a></dd>
+      </dl>
+      <ul class="links">
+        <li><a href="https://scholar.google.com/citations?user=984eUrQAAAAJ&amp;hl=en">Google Scholar</a></li>
+        <li><a href="https://www.math.purdue.edu/~stindel/">Advisor: Samy Tindel</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="about">
+    <h2><span class="sec">§1</span> About</h2>
+    <p class="lede">I'm a graduate student in the Department of Mathematics at Purdue University. My interests lie in analysis, partial differential equations and probability theory; the interplay between these three subjects is quite beautiful.</p>
+    <ul class="interests" aria-label="Research interests">
+      <li>SPDEs</li>
+      <li>Rough Paths</li>
+      <li>Probability</li>
+      <li>PDEs</li>
+    </ul>
+    <h3>Current work</h3>
+    <ul class="current">
+      <li>Applications of rough path theory in reinforcement learning.</li>
+      <li>Long-time behavior of solutions of stochastic partial differential equations.</li>
+    </ul>
+    <h3>Education</h3>
+    <div class="edu">
+      <div>
+        <span class="tag">PhD</span>
+        <p>Purdue University, in progress. Doctoral supervisor: <a href="https://www.math.purdue.edu/~stindel/">Samy Tindel</a>.</p>
+      </div>
+      <div>
+        <span class="tag">MS, 2022</span>
+        <p>American University of Beirut (AUB), August 2020 to May 2022. Supervisor: <a href="https://users.fmf.uni-lj.si/andrist/">Rafael Andrist</a>. Thesis in several complex variables and complex geometry: <a href="https://scholarworks.aub.edu.lb/bitstream/handle/10938/23418/AshkarianEstepan_2022.pdf?sequence=1"><em>Integrable Generators of Lie Algebras of Vector Fields on the Koras–Russell Cubic Threefold</em></a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2><span class="sec">§2</span> Research</h2>
+    <h3>Preprints</h3>
+    <ol class="bib">
+      <li>
+        <div>
+          <span class="title">Intermittent singular solutions of the stationary 2D Navier–Stokes equations in sharp Sobolev spaces</span>
+          <span class="authors"><strong>E. Ashkarian</strong>, A. Bhargava, N. Gismondi, M. Novack</span>
+          <div class="meta">2025 · <a href="https://arxiv.org/abs/2506.00841">arXiv:2506.00841</a></div>
+        </div>
+      </li>
+      <li>
+        <div>
+          <span class="title">The Pontryagin maximum principle and Q-functions in rough environments</span>
+          <span class="authors"><strong>E. Ashkarian</strong>, P. Chakraborty, H. Honnappa, S. Tindel</span>
+          <div class="meta">2026 · <a href="https://arxiv.org/abs/2601.05354">arXiv:2601.05354</a></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="talks">
+    <h2><span class="sec">§3</span> Talks</h2>
+
+    <div class="year">2026</div>
+    <ul class="dated">
+      <li><time datetime="2026-06-04">Jun 4</time><div class="what"><span class="t">Ergodicity for Dissipative Heat Equations in the Whole Space</span><span class="v">SPDEs Workshop, The Ohio State University</span></div></li>
+      <li><time datetime="2026-03-27">Mar 27</time><div class="what"><span class="t">Continuous Time Reinforcement Learning in the Rough Setting</span><span class="v">Seminar on Stochastic Processes, Union College</span></div></li>
+    </ul>
+
+    <div class="year">2025</div>
+    <ul class="dated">
+      <li><time datetime="2025-09-27">Sep 27</time><div class="what"><span class="t">Continuous Time Reinforcement Learning in the Rough Setting</span><span class="v">SIAM Great Lakes Conference, Illinois Tech</span></div></li>
+      <li><time datetime="2025-09-19">Sep 19</time><div class="what"><span class="t">Continuous Time Reinforcement Learning in the Rough Setting</span><span class="v">Student Computation and Applied Mathematics Seminar (SCAM), Purdue University</span></div></li>
+      <li><time datetime="2025-09-17">Sep 17</time><div class="what"><span class="t">Continuous Time Reinforcement Learning in the Rough Setting</span><span class="v">Probability Seminar, Purdue University</span></div></li>
+      <li><time datetime="2025-04-11">Apr 11</time><div class="what"><span class="t">Integration Theories for Stochastic Analysis</span><span class="v">Graduate Student Analysis Seminar, Purdue University</span></div></li>
+    </ul>
+
+    <div class="year">2024</div>
+    <ul class="dated">
+      <li><time datetime="2024-12-04">Dec 4</time><div class="what"><span class="t">Learning on Rough Terrain: Optimal Control Meets Reinforcement Learning</span><span class="v">Student Colloquium, Purdue University</span></div></li>
+      <li><time datetime="2024-04-17">Apr 17</time><div class="what"><span class="t">Stein's Method for Normal Approximations and Applications</span><span class="v">Student Colloquium, Purdue University</span></div></li>
+    </ul>
+
+    <div class="year">2023</div>
+    <ul class="dated">
+      <li><time datetime="2023-11-29">Nov 29</time><div class="what"><span class="t">An Elementary Proof of the Strong Law of Large Numbers (due to Etemadi)</span><span class="v">Student Colloquium, Purdue University</span></div></li>
+      <li><time datetime="2023-10-30">Oct 30</time><div class="what"><span class="t">Sharp Inequalities for Martingales (a result due to Burkholder)</span><span class="v">Math 539 (Probability II), Purdue University</span></div></li>
+      <li><time datetime="2023-04-12">Apr 12</time><div class="what"><span class="t">The Return of the Initial Configuration, 2<sup>100</sup> Timesteps Later…</span><span class="v">Student Colloquium, Purdue University</span></div></li>
+    </ul>
+
+    <div class="year">2022</div>
+    <ul class="dated">
+      <li><time datetime="2022-05-09">May 9</time><div class="what"><span class="t">Chacon's Example of a Weakly Mixing System Which Is Not Strongly Mixing</span><span class="v">Math 307 (Ergodic Theory) final project, American University of Beirut</span></div></li>
+      <li><time datetime="2022-04-28">Apr 28</time><div class="what"><span class="t">Integrable Generators of Lie Algebras of Vector Fields on the Koras–Russell Cubic Threefold</span><span class="v">Master's thesis defense, American University of Beirut</span></div></li>
+    </ul>
+  </section>
+
+  <section id="teaching">
+    <h2><span class="sec">§4</span> Teaching</h2>
+    <h3>Purdue University</h3>
+    <ul class="dated">
+      <li><span class="when">Fall 2026</span><div class="what"><span class="t">Teaching Assistant</span><span class="v">MA 519 Introduction to Probability; MA 303 Differential Equations and Partial Differential Equations</span></div></li>
+      <li><span class="when">Fall 2025</span><div class="what"><span class="t">Lecturer</span><span class="v">MA 16010 Applied Calculus I (two sections)</span></div></li>
+      <li><span class="when">Spring 2025</span><div class="what"><span class="t">Directed Reading Program</span><span class="v">Game Theory, with two undergraduate students</span></div></li>
+      <li><span class="when">Fall 2024</span><div class="what"><span class="t">Seminar Organizer</span><span class="v">Concentration Inequalities; ten graduate students attended and several presented</span></div></li>
+      <li><span class="when">Fall 2023</span><div class="what"><span class="t">Lecturer</span><span class="v">MA 16010 Applied Calculus I (two sections)</span></div></li>
+      <li><span class="when">Summer 2023</span><div class="what"><span class="t">Recitation Instructor</span><span class="v">MA 266 Ordinary Differential Equations (one section)</span></div></li>
+      <li><span class="when">Spring 2023</span><div class="what"><span class="t">Recitation Instructor</span><span class="v">MA 162 Calculus II (two sections)</span></div></li>
+      <li><span class="when">Fall 2022</span><div class="what"><span class="t">Recitation Instructor</span><span class="v">MA 162 Calculus II (two sections)</span></div></li>
+    </ul>
+    <h3>American University of Beirut</h3>
+    <ul class="dated">
+      <li><span class="when">Spring 2022</span><div class="what"><span class="t">Recitation Instructor</span><span class="v">Math 218 Elementary Linear Algebra (two sections)</span></div></li>
+      <li><span class="when">Fall 2021</span><div class="what"><span class="t">Teaching Assistant</span><span class="v">Math 261 Number Theory</span></div></li>
+      <li><span class="when">Spring 2021</span><div class="what"><span class="t">Teaching Assistant</span><span class="v">Math 223 Advanced Calculus</span></div></li>
+      <li><span class="when">Fall 2020</span><div class="what"><span class="t">Teaching Assistant</span><span class="v">Math 214 Topology</span></div></li>
+    </ul>
+  </section>
+
+  <section id="conferences">
+    <h2><span class="sec">§5</span> Conferences Attended</h2>
+    <ul class="dated">
+      <li><span class="when">Mar 2026</span><div class="what"><span class="t">Seminar on Stochastic Processes 2026</span><span class="v">March 25–28, Union College</span></div></li>
+      <li><span class="when">Nov 2025</span><div class="what"><span class="t">Northeast Probability Seminar</span><span class="v">November 20–21, CUNY</span></div></li>
+      <li><span class="when">Sep 2025</span><div class="what"><span class="t">SIAM Great Lakes</span><span class="v">September 27–28, Illinois Tech</span></div></li>
+      <li><span class="when">Aug 2025</span><div class="what"><span class="t">Frontiers in Stochastic Analysis</span><span class="v">August 11–13, Purdue University</span></div></li>
+      <li><span class="when">Jul 2025</span><div class="what"><span class="t">53rd Saint-Flour Probability Summer School</span><span class="v">July 1–12, Saint-Flour, France</span></div></li>
+      <li><span class="when">Mar 2025</span><div class="what"><span class="t">Seminar on Stochastic Processes 2025</span><span class="v">March 19–22, Indiana University</span></div></li>
+      <li><span class="when">Oct 2024</span><div class="what"><span class="t">45th Midwest Probability Colloquium</span><span class="v">October 10–12, Northwestern University</span></div></li>
+      <li><span class="when">Mar 2024</span><div class="what"><span class="t">Universality and Integrability in KPZ</span><span class="v">March 11–15, Columbia University</span></div></li>
+      <li><span class="when">Oct 2023</span><div class="what"><span class="t">44th Midwest Probability Colloquium</span><span class="v">October 12–14, Northwestern University</span></div></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">Estepan Ashkarian · Department of Mathematics, Purdue University · Last updated November 2026</div>
+</footer>
+
+</body>
+</html>
