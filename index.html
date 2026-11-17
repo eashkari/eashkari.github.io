@@ -20,6 +20,8 @@
   --rule: #d9dde4;
   --accent: #7d5f16;       /* deep Purdue-style gold, dark enough for text */
   --accent-soft: #efe6cf;
+  --scholar: #4d90fe;       /* Google Scholar's button blue */
+  --scholar-hover: #357ae8;
   --font-display: "STIX Two Text", "Cambria", "Times New Roman", serif;
   --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --measure: 46rem;
@@ -106,6 +108,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-
   background: var(--surface); color: var(--ink); text-decoration: none; font-size: 0.875rem; font-weight: 500;
 }
 .links a:hover { border-color: var(--accent); color: var(--accent); }
+.links a.scholar { background: var(--scholar); border-color: var(--scholar); color: #fff; font-weight: 600; }
+.links a.scholar:hover { background: var(--scholar-hover); border-color: var(--scholar-hover); color: #fff; }
 
 /* Sections */
 section { padding-block: 2.25rem; border-top: 1px solid var(--rule); }
@@ -206,7 +210,7 @@ footer { border-top: 1px solid var(--rule); padding-block: 2rem 3rem; color: var
         <dt>Email</dt><dd><a href="mailto:eashkari@purdue.edu">eashkari@purdue.edu</a></dd>
       </dl>
       <ul class="links">
-        <li><a href="https://scholar.google.com/citations?user=984eUrQAAAAJ&amp;hl=en">Google Scholar</a></li>
+        <li><a class="scholar" href="https://scholar.google.com/citations?user=984eUrQAAAAJ&amp;hl=en">Google Scholar</a></li>
         <li><a href="https://www.math.purdue.edu/~stindel/">Advisor: Samy Tindel</a></li>
       </ul>
     </div>
